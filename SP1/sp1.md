@@ -1,2 +1,2 @@
 # SPRINT 1
-![Imatge de TUX](/SP1/images/images.jpg "tux")
+![Imatge de TUX](/images/images.jpg "tux")
