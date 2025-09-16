@@ -1,25 +1,16 @@
-# Curso de Machine Learning
+# Projecte 1: Implementació i Gestió d’un Sistema Ubuntu Linux amb Tecnologia ABP
 
-Este repositorio contiene el material del curso de Machine Learning desarrollado por Mireia Consarnau.
+Aquest repositori conté tots els sprints del Projecte 1 per Manu Ghionoiu.
 
-## Contenido
+## Contingut
 
-- Índice y enlaces a las unidades del curso.
-- Recursos en formato PDF, vídeos, y Google Colab.
-- Código y ejemplos prácticos.
+- Índex i enllaços als sprints.
 
-## Uso
+## Ús
 
-Este repositorio está preparado para ser publicado con GitHub Pages.  
-Puedes ver la versión web pública en:  
-https://mireiaconsarnau.github.io/machine_learning/
+Aquest repositori esta preparat per a ser publicat amb GitHub Pages.  
+Pots veure la versió web pública en:
+https://lmanughionoiu.github.io/ISOPJ1/
 
-## Licencia
-
-El contenido está bajo licencia [Creative Commons BY-NC-SA 3.0 ES](LICENSE.md).
-
-
----
-
-© 2025 Mireia Consarnau
+© 2025 Manu Ghionoiu
 
