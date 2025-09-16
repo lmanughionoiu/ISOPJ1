@@ -1,4 +1,4 @@
-# SPRINT 1
+SPRINT 1
 
 - Primerament fem una llista
   - 2a part de la primera
