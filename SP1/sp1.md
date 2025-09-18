@@ -1,9 +1,11 @@
-# SPRINT 1
+---
+layout: default
+title: "Sprint 1: Instal·lació, Configuració Inicial i Programari de Base"
+---
 
-- Primerament fem una llista
-  - 2a part de la primera
-- ***Seguim***
-  - 2a de *seguim*
-    > Blockquote 
-- Imatge
-![Imatge 2 de TUX](images/tux.webp)
+## Virtualització i instal·lació del SO Ubuntu
+## Llicènciament
+## Gestors d'arrencada per a instal·lacions DUALS
+## Punts de restauració
+## Configuració de la xarxa
+## Comandes generals i instal·lacions
