@@ -85,6 +85,47 @@ A partir d'aquí començarem a seguir els següents passos:
 - Finalment, li donarem a continuar i esperarem que s'instal·li. Una vegada instal·lat, ens demanarà reiniciar i ja tindrem la màquina funcionant.
 
 ## Llicenciament
+
+Llicència de Ubuntu
+### 1. Ubuntu és programari lliure i de codi obert
+
+- Ubuntu està basat en Linux i altres programaris que són lliures i de codi obert.
+- Això vol dir que pots usar-lo, copiar-lo, modificar-lo i distribuir-lo lliurement.
+
+### 2. Quina llicència fa servir?
+
+Ubuntu es distribueix sota la llicència **GPL** i inclou un amplíssim catàleg de programes de programari lliure que permeten realitzar qualsevol tipus de tasca.
+
+La **GPL** és una llicència de programari lliure creada per la **Free Software Foundation**.
+
+La versió més habitual per Ubuntu és la **GPLv3** (versió 3), encara que molts projectes també usen la versió 2 o versions posteriors.
+
+Principis bàsics de la **GPL (GNU General Public License)**:
+1. Llibertat per usar el programari
+   - Pots fer servir el programari per a qualsevol propòsit, personal o comercial.
+
+3. Llibertat per estudiar i modificar el codi font
+   - Tens accés al codi font complet, i pots modificar-lo per adaptar-lo a les teves necessitats.
+
+4. Llibertat per distribuir còpies
+   - Pots distribuir còpies del programa, tant la versió original com la modificada.
+
+5. Distribució amb la mateixa llicència (copyleft)
+   - Si distribueixes una versió modificada, has de fer-ho sota la mateixa llicència GPL.
+   - Això assegura que totes les versions futures continuïn sent programari lliure.
+   - Aquesta és la part “forta” de la GPL, coneguda com a copyleft.
+
+### 3. Què significa per a l’usuari?
+
+- Pots descarregar Ubuntu i utilitzar-lo sense cap cost.
+- Pots instal·lar-lo en tants equips com vulguis.
+- Pots modificar-lo o adaptar-lo per a les teves necessitats, sempre respectant les condicions de les llicències dels components.
+- Pots compartir còpies amb altres persones.
+
+### 4. La marca i el nom “Ubuntu”
+
+Tot i que el programari és lliure, la marca “Ubuntu” i el logotip estan protegits per Canonical (l’empresa que publica Ubuntu). Això significa que si fas una distribució modificada i la vols anomenar “Ubuntu”, has de complir amb les normes de Canonical, però si només uses o distribueixes el sistema tal qual, no tens problema.
+
 ## Gestors d'arrencada per a instal·lacions DUALS
 ## Punts de restauració
 ## Configuració de la xarxa
