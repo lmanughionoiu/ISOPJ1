@@ -21,6 +21,7 @@ A partir d'aquí començarem a seguir els següents passos:
 <img width="1920" height="1080" alt="1" src="https://github.com/user-attachments/assets/4c877c90-03d6-48f5-b8ce-69a0063a5b9b" />
 · Una vegada donat, li fiquem el nom que volem tenir a la nostra máquina virtual i elegirem l'imatge ISO del nostre SO on la tinguessim descarregada.
 
+
 · Per a poder fer l'instalació es recomanable activar l'opció de saltar la instalació desatenguda, ja que així podrem elegir natros la configuració que volem al SO i les particions del disc dur. Aixi que li donem a la casella de "Skip Unattended Installation".
 
 
