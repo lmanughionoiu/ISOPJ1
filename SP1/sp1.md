@@ -10,18 +10,19 @@ En aquest cas, es fará servir el SO Uunutu 22.04.3, amb uns requisits minims de
   RAM: 2 GB
   Almacenament: 25 GB
 
-Una vegada tenim la nostra imatge del SO i sabem els requisits mínims, podem començar a instalar la nostra imatge virtual. 
+- Una vegada tenim la nostra imatge del SO i sabem els requisits mínims, podem començar a instalar la nostra imatge virtual. 
 Per a fer aquesta virtualització es fará servir VirtualBox.
 
-Primerament, amb el VirtualBox iniciat, tenim una interficie bastant intuitiva per a poder començar a instalar la nostra imatge. 
+- Primerament, amb el VirtualBox iniciat, tenim una interficie bastant intuitiva per a poder començar a instalar la nostra imatge.
+- 
 A partir d'aquí començarem a seguir els següents passos:
 
 · Farem clic a la part superior, on hi ha una icona que fica "Nova".
 
 <img width="1920" height="1080" alt="1" src="https://github.com/user-attachments/assets/4c877c90-03d6-48f5-b8ce-69a0063a5b9b" />
-· Una vegada donat, li fiquem el nom que volem tenir a la nostra máquina virtual i elegirem l'imatge ISO del nostre SO on la tinguessim descarregada.
+Una vegada donat, li fiquem el nom que volem tenir a la nostra máquina virtual i elegirem l'imatge ISO del nostre SO on la tinguessim descarregada.
 <br>
-· Per a poder fer l'instalació es recomanable activar l'opció de saltar la instalació desatenguda, ja que així podrem elegir natros la configuració que volem al SO i les particions del disc dur. Aixi que li donem a la casella de "Skip Unattended Installation".
+Per a poder fer l'instalació es recomanable activar l'opció de saltar la instalació desatenguda, ja que així podrem elegir natros la configuració que volem al SO i les particions del disc dur. Aixi que li donem a la casella de "Skip Unattended Installation".
 
 
 
