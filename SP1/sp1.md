@@ -6,13 +6,17 @@ title: "Sprint 1: Instal·lació, Configuració Inicial i Programari de Base"
 ## Virtualització i instal·lació del SO Ubuntu
 Per iniciar a instal·lar el sistema operatiu que volem a una màquina virtual, hem de buscar els requisits mínims per tindre un bon funcionament de la màquina.
 
+
 En aquest cas, es farà servir el SO Ubuntu 22.04.3, amb uns requisits mínims de:
-  CPU: 2 vCPUs
-  RAM: 2 GB
-  Almacenament: 25 GB
+
+- CPU: 2 vCPUs
+- RAM: 2 GB
+- Almacenament: 25 GB
+
 
 Una vegada tenim la nostra imatge del SO i sabem els requisits mínims, podem començar a instal·lar la nostra imatge virtual. 
 Per a fer aquesta virtualització es farà servir VirtualBox.
+
 
 Primerament, amb el VirtualBox iniciat, tenim una interfície bastant intuïtiva per a poder començar a instal·lar la nostra imatge.
 
