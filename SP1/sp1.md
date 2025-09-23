@@ -126,8 +126,8 @@ Principis bàsics de la **GPL (GNU General Public License)**:
 
 Tot i que el programari és lliure, la marca “Ubuntu” i el logotip estan protegits per Canonical (l’empresa que publica Ubuntu). Això significa que si fas una distribució modificada i la vols anomenar “Ubuntu”, has de complir amb les normes de Canonical, però si només uses o distribueixes el sistema tal qual, no tens problema.
 
-#### *Per a més informació sobre la llicència d'Ubuntu:*
-[Ubuntu Canonical](https://canonical.com/legal/intellectual-property-policy)
+### Text legal complet
+[Ubuntu llicència](https://canonical.com/legal/intellectual-property-policy)
 
 ## Gestors d'arrencada per a instal·lacions DUALS
 ## Punts de restauració
