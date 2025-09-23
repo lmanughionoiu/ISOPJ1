@@ -102,16 +102,17 @@ La **GPL** és una llicència de programari lliure creada per la **Free Software
 La versió més habitual per Ubuntu és la **GPLv3** (versió 3), encara que molts projectes també usen la versió 2 o versions posteriors.
 
 Principis bàsics de la **GPL (GNU General Public License)**:
-1. Llibertat per usar el programari
+
+**1. Llibertat per usar el programari**
    - Pots fer servir el programari per a qualsevol propòsit, personal o comercial.
 
-3. Llibertat per estudiar i modificar el codi font
+**2. Llibertat per estudiar i modificar el codi font**
    - Tens accés al codi font complet, i pots modificar-lo per adaptar-lo a les teves necessitats.
 
-4. Llibertat per distribuir còpies
+**3. Llibertat per distribuir còpies**
    - Pots distribuir còpies del programa, tant la versió original com la modificada.
 
-5. Distribució amb la mateixa llicència (copyleft)
+**4. Distribució amb la mateixa llicència (copyleft)**
    - Si distribueixes una versió modificada, has de fer-ho sota la mateixa llicència GPL.
    - Això assegura que totes les versions futures continuïn sent programari lliure.
    - Aquesta és la part “forta” de la GPL, coneguda com a copyleft.
