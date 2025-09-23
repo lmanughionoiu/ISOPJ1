@@ -86,7 +86,8 @@ A partir d'aquí començarem a seguir els següents passos:
 
 ## Llicenciament
 
-Llicència de Ubuntu
+### Llicència d'Ubuntu
+
 ### 1. Ubuntu és programari lliure i de codi obert
 
 - Ubuntu està basat en Linux i altres programaris que són lliures i de codi obert.
