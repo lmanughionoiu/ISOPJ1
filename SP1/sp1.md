@@ -142,6 +142,8 @@ Per aquest apartat, tenim dos escenaris;
 - Escenari 1: Instal·lar Windows 10 i Ubuntu en un mateix disc.
 - Escenari 2: Instal·lar Windows 10 i Ubuntu en diferents discs.
 
+Per falta de temps, farem només l'escenari 1.
+
 ## Escenari 1
 
 - Primerament, hem d'entrar als paràmetres de la nostra màquina virtual i entrar al apartat "Sistema" i activar l'opció de "Activa EFI (només SO especials)", ja que aquesta opció fara que puguesim instal·lar Windows 10 en el mateix disc.
@@ -226,6 +228,14 @@ Per aquest apartat, tenim dos escenaris;
 ![Imatge 32](images/32.png)
 
 # Punts de restauració
+Un punt de restauració serveix per desar l'estat del sistema operatiu en un moment concret.
+
+La seva funció principal és revertir canvis i solucionar problemes.
+
+Si després de crear un punt de restauració instal·les un programa, un controlador (driver) o una actualització que fa que l'ordinador funcioni malament, pots "tornar enrere" a aquest punt.
+
+![Imatge 52](images/52.png)
+
 # Gestor de paquets
 Per a realitzar instal·lacions de paquets, farem servir dpkg, apt, aptitude i des de repositoris.
 
@@ -239,23 +249,31 @@ Comandes utilitzades amb dpkg:
 - **Mostrar informació del paquet:** sudo -s paquet
 
 ### Instal·lació amb DPKG
+
 ![Imatge 33](images/33.png)
-Per a veure que funciona, utilitzem la comanda "joe" per a veure si s'ha instal·lat (ja que el paquet que hem descarregat és el joe).
+
+Utilitzem la comanda "joe" per a veure si s'ha instal·lat (ja que el paquet que hem descarregat és el joe).
 
 ![Imatge 34](images/34.png)
 
 ### Eliminar un paquet amb DPKG
+
 ![Imatge 35](images/35.png)
+
 Utilitzem aquesta comanda per a eliminar el paquet amb dpkg i l'intentem obrir per a veure que s'ha eliminat correctament.
 
 ### Purgar un paquet amb DPKG
+
 ![Imatge 36](images/36.png)
+
 Aquesta comanda es fa servir per a eliminar el paquet i tot el que està relacionat amb aquest.
 
 ### Mostrar informació del paquet amb DPKG
+
 ![Imatge 37](images/37.png)
 
 ## APT
+
 És una utilitat de línia de comandes usada en sistemes basats en Debian (com Ubuntu) per gestionar paquets de programari.
 
 Comandes bàsiques utilitzades amb apt:
@@ -264,13 +282,17 @@ Comandes bàsiques utilitzades amb apt:
 - **Purgar un paquet:** sudo apt purge paquet
 
 ### Instal·lació amb APT
+
 ![Imatge 38](images/38.png)
+
 Per a veure que funciona, utilitzem la comanda "vlc" per a veure si s'ha instal·lat (ja que el paquet que hem descarregat és el vlc).
 
 ![Imatge 39](images/39.png)
 
 ### Eliminar un paquet amb APT
+
 ![Imatge 40](images/40.png)
+
 Utilitzem aquesta comanda per a eliminar el paquet amb apt i l'intentem obrir per a veure que s'ha eliminat correctament.
 Si l'obrim, podem veure que no està eliminat, ja que hi han dependencies que no s'han eliminat, fem un sudo apt autoremove i ja no podrem obrir-lo més.
 
@@ -279,9 +301,11 @@ Si l'obrim, podem veure que no està eliminat, ja que hi han dependencies que no
 ### Purgar un paquet amb APT
 
 ![Imatge 42](images/42.png)
+
 Aquesta comanda es fa servir per a eliminar el paquet i tot el que està relacionat amb aquest.
 
 ## Aptitude
+
 Aptitude és una interfície per al sistema de gestió de paquets APT de Debian/Ubuntu.
 
 La seva funció principal és permetre a l'usuari visualitzar, instal·lar, actualitzar i eliminar paquets de programari de manera eficient.
@@ -292,23 +316,53 @@ Comandes bàsiques utilitzades amb aptitude:
 - **Purgar un paquet:** aptitude purge paquet
 
 Primerament, haurém d'instal·lar aptitude al nostre SO.
+
 ![Imatge 43](images/43.png)
 
 ### Instal·lació amb aptitude
 
 ![Imatge 44](images/44.png)
+
 Per a veure que funciona, utilitzem la comanda "vlc" per a veure si s'ha instal·lat (ja que el paquet que hem descarregat és el vlc).
 
 ### Eliminar un paquet amb aptitude
 
 ![Imatge 45](images/45.png)
+
 Utilitzem aquesta comanda per a eliminar el paquet amb aptitude i l'intentem obrir per a veure que s'ha eliminat correctament.
 Aptitude, al contrari de APT, elimina totes les dependències i no ens farà falta fer un autoremove com amb APT.
 
 ### Purgar un paquet amb aptitude
 
 ![Imatge 46](images/46.png)
+
 Aquesta comanda es fa servir per a eliminar el paquet i tot el que està relacionat amb aquest, si ens fixem, ho fa igual que amb el remove i no podrem obrir l'aplicació.
+
+## Repositoris PPA
+
+De vegades, un paquet no està als repositoris oficials o volem una versió més nova. En aquests casos, podem afegir un repositori extern, sovint un PPA.
+
+Escollirem el paquet que volem instal·lar, en aquest cas, VLC.
+
+### Instal·lació per repositori VLC
+
+- Primerament, buscarem per internet el paquet que volem instal·lar, seguit de "repositori PPA", és una forma de trobar-ho més facilment.
+- Una vegada tenim com fer-ho, seguim els passos;
+
+![Imatge 47](images/47.png)
+
+![Imatge 48](images/48.png)
+
+![Imatge 49](images/49.png)
+
+- Per últim, fem un distr-upgrade per a poder actualitzar les dependències necessàries de la distro.
+
+![Imatge 50](images/50.png)
+
+- Revisem que funciona el paquet instal·lat.
+
+![Imatge 51](images/51.png)
+
 
 # Configuració de la xarxa
 
