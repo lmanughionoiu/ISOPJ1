@@ -234,11 +234,15 @@ La seva funció principal és revertir canvis i solucionar problemes.
 
 Si després de crear un punt de restauració instal·les un programa, un controlador (driver) o una actualització que fa que l'ordinador funcioni malament, pots "tornar enrere" a aquest punt.
 
-Per a fer un punt de restauració en Ubuntu, utilitzarem l'aplicació TimeShift;
+## Instal·lació del TimeShift
+
+Per a fer un punt de restauració en Ubuntu, utilitzarem l'aplicació TimeShift, que l'haurém d'instal·lar.
 
 - Instal·lem l'aplicació fent servir apt
 
 ![Imatge 52](images/52.png)
+
+## Configuració de la partició
 
 - Una vegada instal·lat, haurém de crear la partició del disc que hem creat a la màquina virtual, ja que com veem a la següent captura, no la tenim creada.
 
@@ -255,6 +259,34 @@ Per a fer un punt de restauració en Ubuntu, utilitzarem l'aplicació TimeShift;
 - Fent un "sudo fdisk -l" i veem que ja está la partició creada.
 
 ![Imatge 56](images/56.png)
+
+- Una vegada creada la partició, hem de formatar-la utilitzant la comanda "mkfs.ext4 /dev/sdb1".
+
+![Imatge 57](images/57.png)
+
+## Com crear un punt de restauració
+
+Ara que tenim la partició creada i formatada, podem fer crear un punt de restauració.
+
+- Per a poder fer l'exemple de un punt de restauració, creem a la nostra carpeta de Baixades un arxiu de text "touch hola" i un directori "mkdir adeu".
+
+![Imatge 58](images/58.png)
+
+- Obrim l'aplicació TimeShift i el primer que hem de fer és escollir el tipus de snapshot RSYNC.
+
+![Imatge 59](images/59.png)
+
+- Ara escollim la partició on volem guardar les nostres copies de seguretat, en el nostre cas, la partició que hem creat abans.
+
+![Imatge 60](images/60.png)
+
+- Hem d'escollir la periodicitat i quantes ne volem guardar.
+
+![Imatge 61](images/61.png)
+
+- 
+
+![Imatge 62](images/62.png)
 
 # Gestor de paquets
 Per a realitzar instal·lacions de paquets, farem servir dpkg, apt, aptitude i des de repositoris.
