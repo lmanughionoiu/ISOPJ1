@@ -234,7 +234,27 @@ La seva funció principal és revertir canvis i solucionar problemes.
 
 Si després de crear un punt de restauració instal·les un programa, un controlador (driver) o una actualització que fa que l'ordinador funcioni malament, pots "tornar enrere" a aquest punt.
 
+Per a fer un punt de restauració en Ubuntu, utilitzarem l'aplicació TimeShift;
+
+- Instal·lem l'aplicació fent servir apt
+
 ![Imatge 52](images/52.png)
+
+- Una vegada instal·lat, haurém de crear la partició del disc que hem creat a la màquina virtual, ja que com veem a la següent captura, no la tenim creada.
+
+![Imatge 53](images/53.png)
+
+- Començem el creament de la partició
+
+![Imatge 54](images/54.png)
+
+- Li asignem que sigui primària i també tot l'espai del disc dur disponible.
+
+![Imatge 55](images/55.png)
+
+- Fent un "sudo fdisk -l" i veem que ja está la partició creada.
+
+![Imatge 56](images/56.png)
 
 # Gestor de paquets
 Per a realitzar instal·lacions de paquets, farem servir dpkg, apt, aptitude i des de repositoris.
