@@ -284,9 +284,27 @@ Ara que tenim la partició creada i formatada, podem fer crear un punt de restau
 
 ![Imatge 61](images/61.png)
 
-- 
+- Aqui hem de escollir què volem que guarde, en aquest cas tots els arxius de la carpeta d'usuari.
 
 ![Imatge 62](images/62.png)
+
+- Una vegada donat a finish, ens apareixerà el punt de restauració.
+
+![Imatge 63](images/63.png)
+
+- Per a comprovar que funciona, eliminem els arxius creats i li donem al punt de restauració i fiquem "Restore"
+
+![Imatge 64](images/64.png)
+
+- Donem Next
+
+![Imatge 65](images/65.png)
+
+- Aquí podrem veure quins cambis s'han fet des del punt de restauració i li donem a next.
+
+![imatge 66](images/66.png)
+
+- Esperem a que la restauració es completi i podrem veure que els arxius eliminats s'han restablert.
 
 # Gestor de paquets
 Per a realitzar instal·lacions de paquets, farem servir dpkg, apt, aptitude i des de repositoris.
@@ -415,6 +433,22 @@ Escollirem el paquet que volem instal·lar, en aquest cas, VLC.
 
 ![Imatge 51](images/51.png)
 
-
 # Configuració de la xarxa
 
+- Primerament hem de fer un **ip a** per a saber la nostra ip. Una vegada fet, entrem a la configuració de la xarxa per a configurar la ip, màscara i gateway manualment.
+
+![Imatge 67](images/67.png)
+
+- Realitzem un ping a 8.8.8.8 i a google.es per a veure si ens funciona.
+
+![Imatge 68](images/68.png)
+
+- Ara, haurem de modificar l'arxiu **netplan**. 
+- Per a editar aquest arxiu, haurem d'entrar amb la següent comanda: nano /etc/netplan/(tabulem)
+- Editem l'arxiu afegint aquests paràmetres (sempre amb els que hem ficat també manualment)
+
+![Imatge 69](images/69.png)
+
+- Fem un **netplan apply** i fem ping a 8.8.8.8 i a google.es per a veure que ens ha funcionat.
+
+![Imatge 70](images/70.png)
