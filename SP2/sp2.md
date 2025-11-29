@@ -502,6 +502,7 @@ Per a canviar permisos en chmod, tenim dues formes:
         - Exemple: ***chmod 750 fitxer***
 
             Tenim aquest fitxer, amb els permisos base que es creen amb la màscara d'usuari (ho veurém mes endavant: *umask*).
+            
             ![Imatge 56](images/56.png)
 
             Una vegada apliquem la comanda abans dita tenim:
