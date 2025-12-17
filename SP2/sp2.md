@@ -733,13 +733,6 @@ Si entrem a aquest fitxer i editem l'umask aquí, el que farà és canviar la m�
 
 ![Imatge 65](images/65.png)
 
-## Gestió avançada
-
-
-
-## PAM
-
-
 
 ## EXERCICIS EXTRA
 
@@ -771,6 +764,447 @@ Podem afegir un usuari amb useradd, amb tot el que necessitem des de una mateixa
 - Per cambiar el nom del grup: ***sudo groupmod -n grup grupNou***
 - Per cambiar la carpeta personal i moure el contingut a la vegada: ***sudo usermod -d /home/usuari -m usuariNou***
 
+# Gestió de processos
+
+Un procés es defineix com una instància d'un programa en execució que conté un context (registres de CPU, pila, mapes de memòria i descriptors de fitxers).
+
+## Eines per veure processos
+
+### top / htop / btop
+
+Mostren l'activitat del sistema en temps real. `btop` és més visual i interactiu.
+
+`top`
+
+![Imatge 89](images/89.png)
+
+`htop`
+
+![Imatge 90](images/90.png)
+
+`btop`
+
+![Imatge 91](images/91.png)
+
+#### PR i NI
+
+Quan mirem en una d'aquestes eines, veiem dues columnes relacionades amb la prioritat:
+
+| Columna | Nom | Descripció |
+| :---: | :--- | :--- |
+| **NI** | **Nice** | És el valor que **l'usuari pot modificar**. Indica com d'"amable" és el procés amb els altres. |
+| **PR** / **PRI** | **Priority** | És la prioritat **real** que utilitza el Nucli. L'usuari no la toca directament; el Nucli la calcula basant-se en el *Nice*. |
+
+##### L'escala de valors "Nice"
+
+El rang de valors NI funciona a la inversa:
+
+* **-20:** Màxima Prioritat (Menys "amable", vol tota la CPU per a ell).
+* **0:** Prioritat per defecte (La majoria de programes).
+* **+19:** Mínima Prioritat (Molt "amable", només usa CPU si ningú més la vol).
+
+> Com més baix és el número, més prioritat té el procés.
+
+###### nice i renice
+
+- **`nice -n [valor] [procés]`**: Iniciar un procés en especific amb prioritat modificada.
+- **`renice -n [valor] -p PID`**: Modificar un procés que ja està en execució.
+
+![Imatge 98](images/98.png)
+
+### pstree
+
+Mostra la jerarquia de processos en format d'arbre. Útil per veure qui ha executat què.
+
+| Paràmetre | Descripció |
+| :--- | :--- |
+| **-p** | Mostra PIDs. |
+| **-u** | Mostra usuaris. |
+| **-h** | Ressalta el procés actual. |
+
+![Imatge 86](images/86.png)
+
+Si ho executem en root, ens apareixerà els processos de root.
+
+![Imatge 92](images/92.png)
+
+També podem filtrar per usuari o per procés en concret amb `grep`.
+
+![Imatge 87](images/87.png)
+
+### ps
+
+És la forma més completa de veure tots els processos amb detall de recursos (CPU/Memòria).
+
+- **a:** Mostra processos de tots els usuaris que tinguin un terminal (TTY) associat.
+- **u:** Mostra el format orientat a l'usuari (columnes %CPU, %MEM, START).
+- **x:** Inclou processos que no tenen terminal (serveis, dimonis, processos en arrencada).
+
+![Imatge 88](images/88.png)
+
+| Columna | Descripció Tècnica |
+| :--- | :--- |
+| **USER** | L'usuari propietari del procés (determina els permisos d'accés). |
+| **PID** | **Process ID**. Identificador numèric únic del procés. |
+| **%CPU** | Percentatge de temps de CPU utilitzat des de l'última actualització. |
+| **%MEM** | Percentatge de memòria física (RAM) realment utilitzada. |
+| **VSZ** | **Virtual Memory Size**. Mida total de memòria que el procés pot accedir (inclou swap i llibreries no carregades). És una "promesa" de memòria. |
+| **RSS** | **Resident Set Size**. Memòria física (RAM) que ocupa ara mateix. És la memòria "real". |
+| **TTY** | Terminal associat al procés (`?` indica un dimoni/servei sense terminal). |
+| **STAT** | Codi d'estat del procés (R, S, D, Z, T...). |
+| **START** | Hora o data exacta en què es va iniciar el procés. |
+| **TIME** | **Temps de CPU acumulat**. Suma total de minuts/segons que el processador ha treballat per al procés (no és el temps des de l'inici). |
+| **COMMAND** | La comanda exacta i els arguments que han iniciat el procés. |
+
+#### Taula d'Estats (STAT)
+Els estats s'identifiquen a la columna `STAT` quan utilitzem eines com `ps` o `top`.
+
+| Codi | Nom de l'Estat | Descripció |
+| :---: | :--- | :--- |
+| **`R`** | **Running** / Runnable | El procés s'està executant a la CPU o està a la cua d'execució (*runqueue*) esperant torn. |
+| **`S`** | **Interruptible Sleep** | El procés "dorm" esperant un esdeveniment (input d'usuari, dades de xarxa, timers). |
+| **`D`** | **Uninterruptible Sleep** | Espera crítica d'Entrada/Sortida (I/O) de maquinari. El nucli bloqueja la interrupció per evitar corrupció de dades. |
+| **`Z`** | **Zombie** (Defunct) | El procés ha finalitzat l'execució (`exit`), però el pare encara no ha llegit el codi de sortida. No consumeix memòria, només ocupa un PID. | 
+| **`T`** | **Stopped** | L'execució s'ha suspès manualment (ex: `Ctrl+Z`) o per un depurador. |
+
+## Senyals de control (kill)
+
+A Linux, la comanda `kill` no serveix només per "matar", sinó per enviar qualsevol dels 64 senyals disponibles al nucli. Aquests són els més comuns per a l'administració de sistemes:
+
+| ID | Nom POSIX | Efecte Principal | Descripció Tècnica i Ús |
+| :---: | :--- | :--- | :--- |
+| **1** | `SIGHUP` | **Recarregar Config** | *Signal Hang Up*. S'usa per dir que recarreguin els seus fitxers de configuració sense aturar el servei. |
+| **2** | `SIGINT` | **Interrupció** | *Signal Interrupt*. És el senyal que s'envia quan fem `Ctrl+C` a la terminal. |
+| **3** | `SIGQUIT` | **Sortida amb Error** | *Signal Quit*. Similar a `SIGINT` (s'activa amb `Ctrl+\`), però força el procés a generar un fitxer **Core Dump** (bolcat de memòria) abans de morir, útil per a depuració. |
+| **9** | `SIGKILL` | **Matar Forçosament** | *Signal Kill*. **No es pot ignorar ni capturar.** El nucli elimina el procés immediatament de la CPU i la memòria. El procés no té temps de guardar dades ni tancar fitxers. |
+| **15** | `SIGTERM` | **Terminació Suau** | *Signal Terminate*. És el **senyal per defecte** de la comanda `kill`. Demana al procés que es tanqui, donant-li temps per guardar l'estat i alliberar recursos. |
+| **18** | `SIGCONT` | **Continuar** | *Signal Continue*. Reprèn l'execució d'un procés que estava aturat (en estat `T`). |
+| **19** | `SIGSTOP` | **Pausar** | *Signal Stop*. Atura l'execució del procés (el posa en estat `T`) sense matar-lo. **No es pot ignorar.** Equival a prémer `Ctrl+Z`, però enviat programàticament. |
+
+### Exemples d'ús:
+
+`Ctrl+C`, `Ctrl+Z` i `q` en `top`
+
+Mentre estem executant `top` (o la majoria de programes interactius), les tecles de control envien senyals diferents al sistema:
+
+#### 1. `Ctrl + C` (Terminate)
+* **Senyal:** Envia **`SIGINT`** (Interrupció).
+* **Efecte:** Finalitza el procés immediatament.
+* **Resultat:** El programa `top` es tanca i s'elimina de la memòria. Tornes a la línia d'ordres (*shell*).
+
+#### 2. `Ctrl + Z` (Suspend)
+* **Senyal:** Envia **`SIGSTOP`**.
+* **Efecte:** **NO tanca el programa.** El "congela" (pausa) i l'envia al segon pla (*background*).
+* **Resultat:**
+    * Sembla que has sortit, però el procés `top` continua ocupant memòria RAM.
+    * Si fas un `ps aux`, veurem el procés en estat **`T`** (Stopped).
+
+    ![Imatge 94](images/94.png)
+
+    També tenim que podem iniciar un procés en segon pla, afegint un `&`al final.
+
+    ![Imatge 99](images/99.png)
+    
+* **Com recuperar-lo?**
+    1. Executa `jobs` per veure els processos aturats.
+
+    ![Imatge 95](images/95.png)
+
+    2. Executa `fg` (*foreground*) per tornar a obrir el `top` on el vas deixar.
+    
+
+#### 3. Tecla `q` (Quit)
+* **Efecte:** És la forma estàndard i neta de sortir de `top`.
+* **Resultat:** El programa es tanca internament de forma controlada, sense necessitat d'enviar senyals externs d'interrupció.
+
+#### 4. kill -9 PID
+
+L'ús de l'opció `-9` envia el senyal **SIGKILL**. A diferència del `kill` normal, el `-9` és una ordre directa al nucli del sistema per eliminar el procés immediatament.
+
+Tinc VirtualBox obert, i amb la comanda `top` puc veure quin PID té.
+
+![Imatge 93](images/93.png)
+
+![Imatge 96](images/96.png)
+
+Ara veem que la instància de VirtualBox ja no la tinc iniciada, ja que l'hem matat.
+
+![Imatge 97](images/97.png)
+
 # Còpies de seguretat i automatització de tasques
+
+## Còpies de seguretat
+
+Les copies de seguretat garanteixen la continuïtat i la integritat de la informació davant de qualsevol desastre.
+
+### Objectiu
+
+L'objectiu principal és la recuperació. Una còpia de seguretat no serveix de res si no es pot restaurar. Ens protegeixen contra:
+- **Errades de maquinari:** Discos durs trencats, servidors cremats.
+- **Error humà:** Esborrar fitxers accidentalment.
+- **Ciberatacs:** Ransomware o virus.
+- **Desastres físics:** Incendis, inundacions o robatoris.
+
+### Tipus de còpies
+
+No totes les còpies funcionen igual. L'elecció depèn de l'espai que tinguis i de la rapidesa amb què necessitis recuperar les dades.
+
+#### Còpia Completa (Full Backup)
+
+És una còpia exacta de totes les dades seleccionades.
+- **Avantatge:** La restauració és la més ràpida (només necessites l'últim fitxer complet).
+- **Desavantatge:** Ocupa molt espai i triga molt a fer-se.
+
+#### Còpia Incremental
+
+Copia només les dades que han canviat des de l'última còpia de qualsevol tipus (sigui completa o incremental).
+- **Avantatge:** És molt ràpida i ocupa molt poc espai.
+- **Desavantatge:** La restauració és lenta. Necessites l'última còpia completa + totes les incrementals posteriors fins al dia d'avui. Si falla una intermèdia, es trenca la cadena.
+
+#### Còpia Diferencial
+
+Copia totes les dades que han canviat des de l'última còpia completa.
+- **Avantatge:** Restauració més ràpida que la incremental (només necessites la Completa + l'última Diferencial).
+- **Desavantatge:** Ocupa més espai que la incremental, ja que cada dia copia de nou tots els canvis acumulats des de l'inici del cicle.
+
+## Comandes Backups
+
+### Teoria
+
+Tenim 3 comandes per a poder aconseguir fer còpies.
+
+#### `cp` (Copy)
+
+És la comanda més bàsica. Funciona a nivell de sistema de fitxers. Llegeix un fitxer, crea un de nou al destí i hi escriu les dades.
+
+**Com funciona:** El sistema operatiu mira el fitxer A, llegeix el seu contingut i l'escriu al lloc B. Si el fitxer B ja existeix, normalment el sobreescriu completament, sense comprovar si és igual o diferent.
+
+#### `rsync` (Remote Sync)
+
+Aquesta és l'eina estàndard per a còpies de seguretat de fitxers. Funciona amb un algorisme de "Delta Encoding".
+
+**Com funciona:** Primerament compara l'origen i el destí.
+- Revisa la mida i la data de modificació.
+- Si el fitxer ha canviat, calcula quina part (blocs) del fitxer és diferent.
+- Només transfereix les parts noves o canviades a través de la xarxa o el disc.
+
+#### `dd` (Disk Dump)
+
+Mentre `cp` i `rsync` treballa en fitxers i carpetes, `dd` treballa a nivell de blocs (bits i bytes).
+
+**Com funciona:** `dd` llegeix el dispositiu d'entrada bit a bit i l'escriu al dispositiu de sortida. Ho copia tot. Si tens un disc dur de 500 GB però només estàs usant 50 GB de dades, dd copiarà els 500 GB (incloent-hi l'espai buit i fitxers esborrats que encara són magnèticament al disc).
+
+### Pràctica
+
+#### Preparació màquina
+
+A la nostra màquina virtual, afegim dos discs de 1 GB cadascuna. 
+
+Entrem a la terminal i fem un `fdisk -l` i busquem els discs.
+
+![Imatge 100](images/100.png)
+
+Li fem una partició completa a cada disc i lis donem format ext4 als dos.
+
+![Imatge 101](images/101.png)
+
+![Imatge 102](images/102.png)
+
+![Imatge 103](images/103.png)
+
+Creem una carpeta anomenada ***prova*** i creem un arxiu anomenat ***prova2***.
+
+![Imatge 104](images/104.png)
+
+Ara anirem al directori */var* i crearem un directori anomenat ***copies***, on montarem la unitat sdb1.
+
+![Imatge 105](images/105.png)
+
+Ara ja podem veure les següents comandes.
+
+#### `cp` (Copy)
+
+En aquest cas, farem una còpia recursiva de les dades de la carpeta Documents. Veem que es fa una còpia ràpida de tot el que tenim, i si eliminem la carpeta de la ruta de on copiem i creem un altre fitxer, i després tornem a fer un `cp -R`, a la carpeta copies, segueix estant tots els arxius copiats anteriorment i el de després.
+
+![Imatge 110](images/110.png)
+
+![Imatge 106](images/106.png)
+
+![Imatge 109](images/109.png)
+
+#### `rsync` (Remote Sync)
+
+Amb aquesta comanda el que fem és sincronitzar les carpetes, és a dir, actualitzant només les dades que s'han modificat.
+
+![Imatge 107](images/107.png)
+
+#### `dd` (Disk Dump) 
+
+Aquí clonem la partició sdb1 a sdc1 i verifiquem amb md5sum que tenen el mateix hash, mostrant que són còpies.
+
+![Imatge 108](images/108.png)
+
+## Programes backups
+
+### Deja-Dup
+
+
+
+### Duplicity
+
+
+
+## Automatització scripts
+
+### Teoria
+
+#### Cron
+
+Executa tasques programades en una data i hores específiques. Si el sistema està apagat, la tasca es perd. És ideal per a tasques en dates i hores concretes i per accions especifiques d'un usuari.
+
+#### Anacron
+
+És ideal per executar tasques periòdiques, on no cal una data i una hora específica. Normalment s'utilitza per a tasques de manteniment del sistema. No requereix que el sistema estigui obert, perque quan s'obrigue ja s'executarà.
+
+### Practica
+
+#### Cron
+
+Hi han dos documents que podem editar per afegir tasques programades. El crontab d'usuari (el teu propi fitxer) i el crontab del sistema.
+
+***Crontab del sistema:*** Especifiquem quin usuari executa la comanda (per exemple, root). Als crontabs d'usuari no cal, perquè s'executa com l'usuari que el crea.
+
+![Imatge 111](images/111.png)
+
+***Crontab de l'usuari:*** Per editar el crontab d'un usuari en específic fem: `crontab -e -u [usuari]`.
+
+![Imatge 112](images/112.png)
+
+![Imatge 113](images/113.png)
+
+#### Anacron
+
+L'únic document necessari en anacron és /etc/anacrontab.
+
+![Imatge 114](images/114.png)
+
+Per a mostrar la seva funcionalitat, creem un script que ens crei un fitxer comprimit del directori Imágenes, on creem dos fitxers de prova.
+
+![Imatge 115](images/115.png)
+
+Creem un fitxer anomenat ***copies.sh***, on ficarem el script que volem. Hem ficat que el nom del fitxer tingui el TIMESTAMP de quan s'ha creat.
+
+![Imatge 116](images/116.png)
+
+Ara li donem permís d'execució al fitxer i veem amb `ls -l` que si que els té.
+
+![Imatge 117](images/117.png)
+
+El que hem de fer ara és entrar a l'arxiu de crontab, mostrat a l'apartat de *Cron* i afegir a l'última línea, la tasca que volem realitzar.
+
+![Imatge 118](images/118.png)
+
+Ara esperem fins l'hora que hem ficat i veem que ens ha creat l'arxiu i si entrem, estàn els arxius que hem demanat que faigui la còpia.
+
+![Imatge 119](images/119.png)
+
+![Imatge 120](images/120.png)
+
+Finalment, per acabar provant un altre métode, és dir-li que cada día que obrim la màquina, ens cree l'arxiu. Això ho fem gràcies a l'arxiu cron.daily (tenim més arxius així, que podem fer servir per si volem setmanalment per exemple).
+
+![Imatge 121](images/121.png)
+
+Per a fer-ho, copiem el script que hem fet a la carpeta */etc/cron.daily/copies*.
+
+![Imatge 122](images/122.png)
+
+Com ja hem iniciat la màquina, si fem reboot, no ens crearà el fitxer, ja que és només quan inicies per primera vegada en aquell día. Per això, hem d'editar el fitxer cron.daily i eliminar l'entrada que té i deixar-ho buit.
+
+![Imatge 124](images/124.png)
+
+![Imatge 123](images/123.png)
+
+Fem reboot i esperem un minut. 
+
+![Imatge 125](images/125.png)
+
+![Imatge 126](images/126.png)
+
+Veem que ens ha creat correctament el fitxer.
+
 # Quotes d'usuari
 
+Les quotes d'usuari (o disk quotas) són un mecanisme que permet als administradors limitar la quantitat d'espai de disc o el nombre d'arxius que un usuari (o un grup) pot utilitzar.
+
+Hi ha dos tipus de recursos que es controlen amb les quotes:
+- **Límit de Blocs (Espai):** Limita la quantitat de dades (en KB, MB o GB).
+- **Límit d'Inodes (Arxius):** Limita la quantitat d'arxius i directoris, independentment de la seva mida.
+
+## Tipus de límits
+
+- **Soft Limit:** L'usuari pot superar aquest límit temporalment, però rebrà avisos que s'està acostant al màxim. Si no redueix l'espai abans que passi el període de gràcia (habitualment 7 dies), el sistema li bloquejarà l'escriptura.
+- **Hard Limit:** L'usuari no pot superar aquest límit. Si intenta guardar un fitxer que superi aquest límit, rebrà l'error `Disk quota exceeded` immediatament i l'escriptura fallarà.
+
+## Practica
+
+Instal·lem quota.
+
+![Imatge 127](images/127.png)
+
+Entrem a /mnt/ i creem uun directori.
+
+![Imatge 128](images/128.png)
+
+Per a fer aquest procediment, he fet servir el 2n disc d'1GB que he afegit a la màquina.
+
+Ara, el que fem és editar el fitxer fstab. `nano /etc/fstab`. Afegint els paràmetres que demana.
+
+![Imatge 129](images/129.png)
+
+Una vegada fet, veem que si fem un `ls` a la ruta on es troba el directori que hem creat i afegit al fstab, no ens apareix els fitxers que en teoria deurien sortir una vegada afegit les quotes. 
+
+![Imatge 130](images/130.png)
+
+Per això, el que fem, és fer un `quotacheck -cug /mnt/dades`. Ara ja podem veure que s'han creat els fitxers.
+
+![Imatge 131](images/131.png)
+
+Per si acas, per assegurar-mos del bon funcionament, podem fer un `quotaon /mnt/dades`, però deuria estar activat (per desactivar-lo, fem el mateix pero en `quotaoff`).
+
+![Imatge 132](images/132.png)
+
+Amb un usuari que tinguessim creat, o que podem crear ara per provar, podem veure quines quotes té aquell usuari en aquell directori.
+
+![Imatge 133](images/133.png)
+
+Ara, per editar la quota d'aquest usuari, utilitzem `edquota -u usuari`.
+
+![Imatge 134](images/134.png)
+
+Com he explicat abans amb el ***Hard Limit*** i ***Soft Limit***, podem editar aquests paràmetres per a blocs o inodes. En aquest cas, editem per a blocs el *Soft Limit* a 1024 i el *Hard Limit* el configurem a 2048.
+
+![Imatge 135](images/135.png)
+
+Ara podem començar a fer proves per a veure si funciona les quotes.
+
+Crearem un fitxer de 800 KiB amb la comanda `dd` i veem que ens apareix que tenim usat 800, encara està dins del rang.
+
+![Imatge 136](images/136.png)
+
+Tornem a crear un altre fitxer igual. Veem que ja l'espai utilitzat és 1600, sobrepassa el *Soft Limit* i ens apareix que tenim un període de gracia de 6 dies restants.
+
+![Imatge 137](images/137.png)
+
+Repetim el procediment i finalment, veem que ens apareix l'error ***Se ha excedido la cuota de disco***. En alguns casos, el fitxer es creara buit, 0 KiB, pero en aquest cas, me l'ha creat fins omplir els 2048 KiB que tenia afegits al *Hard Limit*.
+
+![Imatge 138](images/138.png)
+
+![Imatge 139](images/139.png)
+
+Ara, si desactivem la quota, podem crear l'arxiu sense problemes.
+
+![Imatge 140](images/140.png)
+
+Finalment, si volem modificar el temps de gracia, podem fer un `edquota -t` i podrem editar-ho para tot els usuaris.
+
+![Imatge 141](images/141.png)
