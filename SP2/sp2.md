@@ -1046,13 +1046,98 @@ Aquí clonem la partició sdb1 a sdc1 i verifiquem amb md5sum que tenen el matei
 
 ## Programes backups
 
-### Deja-Dup
-
-
-
 ### Duplicity
 
+Duplicity és una eina de excel·lent per fer còpies de seguretat. Té dues característiques clau que la fan molt potent:
+- **Xifratge GPG:** Totes les dades es xifren abans de sortir del teu ordinador (ningú les pot llegir sense la clau).
+- **Eficiència (Rsync):** Utilitza l'algoritme rsync per desar només les parts dels arxius que han canviat, estalviant molt espai i ample de banda.
 
+#### Guia d'ús
+
+Primerament, hem de preparar l'instància. Per això, he fet ús de una de les particions que tenia d'1GB. La he formatat a mkfs4 i he creat la carpeta /backup.
+
+![Imatge 145](images/145.png)
+
+Una vegada creada la carpeta, hem d'entrar a fstab i afegir el directori que hem creat.
+
+![Imatge 146](images/146.png)
+
+Ara si, instal·lem duplicity
+
+![Imatge 142](images/142.png)
+
+Ara ja podem fer la còpia, que la farem de la carpeta Documentos i li ficarem destinació al escriptori.
+
+![Imatge 144](images/144.png)
+
+Com que Duplicity xifra les dades, necessita una clau o contrasenya. Per no haver d'escriure-la cada vegada, la definim com a variable d'entorn, això farà que no ens demani la contrasenya ja que la ficarà automàticament.
+
+![Imatge 143](images/143.png)
+
+Si no, ho podem fer manualment, ens demanarà la contrasenya sempre.
+
+La comanda és la següent: `duplicity [origen] [destí]`
+
+![Imatge 150](images/148.png)
+
+Si ara mirem la carpeta /backup, veurem que s'ha creat diversos fitxers. Aquest és el nostre backup.
+
+![Imatge 149](images/147.png)
+
+Finalment, per recuperar dades, simplement inverteim l'ordre: `duplicity restore [origen_backup] [destí_on_recuperar]`.
+
+Si volem restaurar un únic fitxer: `duplicity restore --file-to-restore [document] --time 3D [origen_backup] [destí_on_recuperar]`.
+
+##### Protocols
+
+Duplicity suporta molts destins diferents. Només hem de canviar el prefix de la URL de destí:
+
+- **Local:** file://
+- **SSH/SCP:** scp:// o sftp://
+- **Amazon S2:** s3://
+- **Google Drive:** gdocs://
+- **WebDAV:** webdav://
+
+
+### Deja-Dup
+
+En realitat, ***Déjà Dup*** és *duplicity*, però amb una interfície gràfica. Ell s'encarrega de totes la comandes, xifratge, anacron, etc.
+
+Instalem deja-dup.
+
+![Imatge 149](images/149.png)
+
+Ens instalará una aplicació, no s'anomenará Déjà Dup, si no, depenent de l'idioma de la màquina, en aquest cas *Respaldos*.
+
+![Imatge 150](images/150.png)
+
+Li donem a *Cree su primer respaldo*.
+
+![Imatge 151](images/151.png)
+
+Aqui ja podem escollir quines carpetes volem fer la còpia i de quines ignorar-ho. Li donem a següent i veem que podem escollir on fer aquesta còpia, ho farem en local i que ho faigui al escriptori, per a veure com ho fa.
+
+![Imatge 152](images/152.png)
+
+Ara veem que ens demanarà la contrasenya per a tenir-ho xifrat. Fiquem la contrasenya que volem i *endavant*.
+
+![Imatge 153](images/153.png)
+
+Veem que ja està creant-se la còpia.
+
+![Imatge 154](images/154.png)
+
+Ara veem que a l'escriptori s'han creat els arxius de còpia.
+
+![Imatge 155](images/155.png)
+
+Més opcions d'aquesta aplicació és crear una còpia periòdica.
+
+![Imatge 156](images/156.png)
+
+A part, també podem restaurar arxius i directoris.
+
+![Imatge 157](images/157.png)
 
 ## Automatització scripts
 
