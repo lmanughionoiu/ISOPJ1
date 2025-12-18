@@ -140,10 +140,6 @@ Si ara reiniciem i mirem la carpeta, els arxius segueixen allí.
 
 ![Imatge 36](images/36.png)
 
-# Gestió de procesos
-
-
-
 # Gestió d'usuaris i grups i permisos
 
 ### Usuari
