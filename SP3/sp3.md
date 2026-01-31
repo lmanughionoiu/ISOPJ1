@@ -451,7 +451,7 @@ Hi han 2 grups, informatica i administracio.
 
 ### 6. D’un sol cop: Afegeix un nou atribut opcional a l’usuari sergi, modifica el cognom de l’usuari sergi al valor Pallarés
 
-![Imatge 114](image-114.png)
+![Imatge 114](images/image-114.png)
 
 No fiquem accents ja que no apareixerà el valor correctament.
 
