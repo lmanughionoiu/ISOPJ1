@@ -469,11 +469,11 @@ Hi han 3 usuaris, xavier, enric i sergi.
 
 No el podem eliminar ja que possixGroup necessita obligatoriament aquest atribut.
 
-![Imatge 118](image/image-119.png)
+![Imatge 118](images/image-119.png)
 
 ### 9. Quantes uos hi ha al domini vesper.cat?
 
-![Imatge 119](image/image-120.png)
+![Imatge 119](images/image-120.png)
 
 Hi han 3 UOs.
 
