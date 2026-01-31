@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Sprint 3: IAdministració de Dominis i Seguretat"
+title: "Sprint 3: Administració de Dominis i Seguretat"
 ---
 
 # Configuració Servidor - Client
