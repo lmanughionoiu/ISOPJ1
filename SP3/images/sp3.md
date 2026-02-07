@@ -196,17 +196,17 @@ Un servidor Samba és per a compartir recursos, siguen fitxers, impresores, etc.
 
 ## Servidor
 
-Instalem Samba
+Per començar, necessitem instalar Samba.
 
 ![Imatge 1](images/image.png)
 
-Creem carpeta i modifiquem els permisos, el grup i usuari.
+Per a començar amb les proves d'ús, creem una carpeta i modifiquem els permisos, el grup i usuari.
 
 ![Imatge 2](images/image-2.png)
 
 ![Imatge 3](images/image-1.png)
 
-Creem 3 usuaris nous, 1 grup i afegim aquests usuaris al grup.
+Creem 3 usuaris nous, 1 grup i afegim aquests usuaris al grup, ja que els necessitem per a poder comprobar la funcionalitat de samba.
 
 ![Imatge 4](images/image-4.png)
 
@@ -217,6 +217,20 @@ Li fiquem contrasenyes per poder entrar al client.
 Hem d'afegir un recurs compartit nou al fitxer smb.conf.
 
 ![Imatge 5](images/image-5.png)
+
+Cada línea del recurs vol dir el següent:
+
+- **[asixa]:** És el nom del recurs compartit. Així és com els usuaris veuran la carpeta quan accedeixin al servidor des de la xarxa.
+- **path = /asixa:** Indica la ruta real dins del disc dur del servidor on es guarden els fitxers.
+- **guest ok = yes:** Permet entrar a la carpeta com a invitat.
+- **directory mask = 0755:**  Defineix els permisos que tindran les carpetes noves que es creïn a dins.
+- **create mask = 0644:** Defineix els permisos que tindran els fitxers nous que es creïn a dins.
+- **browseable = yes:** Fa que la carpeta aparegui visible a la llista quan algú explora els recursos de la xarxa.
+- **read only = no:** Permet fer canvis a la carpeta.
+- **writeable = yes:** Permet l'escriptura.
+- **read list = @madrid, naim, guest:** Diu qui té permís per llegir.
+- **write list = naim, guest:** Diu qui té permís per escriure.
+- **invalid users = edgar:** Prohibeix l'accés a l'usuari edgar.
 
 Ara hem de fer un restart al servei de samba.
 
@@ -232,6 +246,8 @@ Instalem smbclient.
 
 ![Imatge 8](images/image-7.png)
 
+### Proves client samba - ANÒNIM
+
 Ara iniciem les proves.
 
 Ens hem de connectar entrant a "Otras ubicaciones" i afegir "smb://ip_servidor/nom_recurscompartit/".
@@ -242,11 +258,15 @@ Ens hem connectat com anònim i hem creat una carpeta i ha funcionat, això és 
 
 ![Imatge 10](images/image-9.png)
 
+### Proves client samba - NAIM
+
 Ens connectem com naim i provem llegir i crear carpeta, tal i com hem ficat als permisos.
 
 ![Imatge 11](images/image-12.png)
 
 ![Imatge 12](images/image-13.png)
+
+### Proves client samba - EROS
 
 Ara ens connectem com eros, que pot llegir, pero no crear carpeta.
 
@@ -254,15 +274,91 @@ Ara ens connectem com eros, que pot llegir, pero no crear carpeta.
 
 ![Imatge 14](images/image-14.png)
 
+### Proves client samba - EDGAR
+
 Finalment, ens connectem com edgar, que no pot accedir.
 
 ![Imatge 15](images/image-15.png)
 
 Quan li donem a connectar, no surt cap error, si no que el que fa es tornar a demanar la autenticació.
 
-## Extra
+## Extra -Integració LDAP a Samba
 
+Ara que tenim Samba i hem provat la seva funcionalitat, farem un exercici extra, que és integrar LDAP a Samba.
 
+Primerament, crearem un recurs compartit nou i donar-li els permisos, per a començar de 0.
+
+![Imatge 132](images/image-132.png)
+
+Ara que tenim el recurs compartit i amb els seus permisos, crearem un arxiu amb un grup i usuaris en un fitxer .ldif.
+
+![Imatge 133](images/image-133.png)
+
+Afegim el fitxer al nostre ldap.
+
+![Imatge 131](images/image-131.png)
+
+Com hem fet amb els anteriors usuaris, hem de afegir-lis contrasenyes per poder entrar des del client, però, per a que samba pugui afegir-li les contrasenyes, primer haurém d'entrar a `/etc/samba/smb.cnf` i modificar el fitxer, afegint les següents línies i ademés configurar el recurs compartit:
+
+![Imatge 134](images/image-134.png)
+
+![Imatge 135](images/image-135.png)
+
+Ara haurém d'afegir l'esquema per a que funcioni amb el samba i ldap.
+
+![Imatge 136](images/image-136.png)
+
+Ara hem de reiniciar els dos serveis, slapd i smbd.
+
+![Imatge 137](images/image-137.png)
+
+Ara que ja tenim l'esquema afegit, ara hem de donar-li la contrasenya del admin afegida al slapd al samba.
+
+![Imatge 138](images/image-138.png)
+
+Ara ja podrem afegir les contrasenyes als usuaris.
+
+![Imatge 139](images/image-139.png)
+
+![Imatge 140](images/image-140.png)
+
+![Imatge 141](images/image-141.png)
+
+Una vegada els hem afegit, anem al client i provem.
+
+### Prova client
+
+#### Anònim
+
+Tot i que no aparegui cap error, si intentem donar-li conectar, no ens deixa, ja que en el smb.conf no tenia el poder entrar com anònim.
+
+![Imatge 142](images/image-142.png)
+
+#### Thor
+
+Si entrem com l'usuari Thor, ens deixarà, però no podrem crear carpetes, només entrar i mirar.
+
+![Imatge 143](images/image-143.png)
+
+![Imatge 144](images/image-144.png)
+
+I a part, si intentem eliminar la carpeta de un altre, en aquest cas Thorfinn, no ens deixarà, pels permisos que hem ficat al principi.
+
+![Imatge 148](images/image-148.png)
+
+#### Thorfinn
+
+Ens connectem com Thorfinn, podem crear, eliminar i llegir.
+
+![Imatge 145](images/image-145.png)
+
+![Imatge 146](images/image-146.png)
+
+#### Thorkell
+
+Si ens connectem com Thorkell, no ens deixarà entrar, ja que no tenim permís. Ens passarà igual que als anònims.
+
+![Imatge 147](images/image-147.png)
 
 # Servidor NFS
 
