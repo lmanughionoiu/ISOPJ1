@@ -362,7 +362,117 @@ Si ens connectem com Thorkell, no ens deixarà entrar, ja que no tenim permís. 
 
 # Servidor NFS
 
-A nivell servidor
+És un protocol que ens permet compartir també fitxers i directoris (no recursos com Samba) a través d'una xarxa local. L'autenticació es fa a nivell de host, no d'usuari, a diferència de Samba. 
+
+Poden accedir tant clients Windows com Linux.
+
+## NFS sense LDAP
+
+### EXERCICI 1
+
+#### Server
+
+Primerament hem d'instal·lar el servei de NFS al server.
+
+![Imatge 149](images/image-149.png)
+
+Ara hem de crear la carpeta compartida i donar-li els permisos adients, tal i com en Samba.
+
+![Imatge 150](images/image-150.png)
+
+En comparació de Samba, que editavem l'arxiu `smb.conf`, per a NFS hem d'editar el fitxer `/etc/exports`.
+
+![Imatge 151](images/image-151.png)
+
+Els paràmetres que estem fent servir és:
+- **/1rexercici:** És la carpeta del nostre servidor que volem compartir.
+- **\*:**L'asterisc és un comodí que significa "tothom". Qualsevol equip de la xarxa que pugui arribar al nostre servidor podrà intentar muntar aquesta carpeta.
+- **(rw,sync,no_subtree_check):** Aquests defineixen com es comportarà la carpeta compartida:
+    - **rw:** Permet que els clients puguin tant llegir com escriure fitxers a la carpeta.
+    - **sync:** Aquesta és una opció de seguretat. El servidor no respon que s'ha realitzat al client fins que les dades s'han escrit realment al disc dur.
+    - **no_subtree_check:** Evita que el servidor comprovi si el fitxer sol·licitat està realment en el subdirectori exportat en lloc de tota la partició.
+
+Ara reiniciem el servei i mirem si està correcte.
+
+![Imatge 152](images/image-152.png)
+
+Finalment, entrem al directori i creem un fitxer per a fer les proves al client.
+
+![Imatge 153](images/image-153.png)
+
+Ara ja podem anar al client.
+
+#### Client
+
+Primerament hem d'instal·lar aquests paquets al client.
+
+![Imatge 154](images/image-154.png)
+
+A diferència de Samba, que entravem directament amb `smb://...` , per a fer ús de NFS, hem de crear un directori nou amb els mateixos permisos.
+
+![Imatge 155](images/image-155.png)
+
+Ara hem de fer un ping al server per a veure si tenim connexió.
+
+![Imatge 156](images/image-156.png)
+
+Una vegada veem que tenim ping, hem d'editar el fitxer `/etc/fstab` i afegir la següent linea.
+
+![Imatge 157](images/image-157.png)
+
+Guardem els canvis i reiniciem el client.
+
+Ara que tenim el client reiniciat, per comprovar que ens funciona el NFS, hem d'entrar al directori `prova` que hem creat anteriorment i fer un `ls` per veure si s'ha muntat la carpeta del servidor al client correctament.
+
+![Imatge 158](images/image-158.png)
+
+Veem que l'arxiu que hem creat al directori del servidor ja ens apareix al client.
+
+### EXERCICI 2
+
+#### Server
+
+Creem el directori homes, fiquem permisos i creem un altre directori dins, afegint-li els permisos.
+
+![Imatge 159](images/image-159.png)
+
+Com abans, entrem a editar el fitxer `/etc/exports` i afegim el mateix, pero amb el directori que ara hem creat.
+
+![Imatge 160](images/image-160.png)
+
+Ara fem un restart i veem el status.
+
+![Imatge 161](images/image-161.png)
+
+Una vegada fet tot això, per seguir amb els usuaris i que la seva home estigui al directori homes i no home, editem l'arxiu `usu.ldif` ficant aquestes dades i modificant **IMPORTANT** el homeDirectory.
+
+![Imatge 164](images/image-164.png)
+
+L'afegim al ldap.
+
+![Imatge 165](images/image-165.png)
+
+Ara si entrem al directori `homes` veem que no hi ha res al directori `marcel`, per això, hem d'entrar al client i una vegada dins, ens crearà lo seu directori.
+
+![Imatge 166](images/image-166.png)
+
+#### Client
+
+Ara que estem al client, hem de crear el directori `homes` que hem creat al servidor, afegint-li els permisos.
+
+![Imatge 163](iamges/image-163.png)
+
+Ara entrem a `/etc/fstab` i afegim el mateix que abans però en el directori `homes`.
+
+![Imatge 162](images/image-162.png)
+
+Després de fer els passos al servidor, entrem com marcel al client.
+
+![I](image-167.png)
+
+## NFS amb LDAP
+
+
 
 # Exercici LDAP
 
