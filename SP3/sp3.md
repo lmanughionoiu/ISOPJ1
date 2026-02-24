@@ -470,6 +470,14 @@ Després de fer els passos al servidor, entrem com marcel al client.
 
 ![Imatge 167](images/image-167.png)
 
+Ara que tenim el usuari creat, entrem de nou amb el nostre usuari i mirem si al directori `/homes` està la carpeta home de marcel.
+
+![Imatge 168](images/image-168.png)
+
+Mirem la carpeta i ja veem que tenim el directori creat.
+
+![Imatge 169](images/image-169.png)
+
 ## NFS amb LDAP
 
 
