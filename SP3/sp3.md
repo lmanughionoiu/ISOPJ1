@@ -460,7 +460,7 @@ Ara si entrem al directori `homes` veem que no hi ha res al directori `marcel`, 
 
 Ara que estem al client, hem de crear el directori `homes` que hem creat al servidor, afegint-li els permisos.
 
-![Imatge 163](iamges/image-163.png)
+![Imatge 163](images/image-163.png)
 
 Ara entrem a `/etc/fstab` i afegim el mateix que abans però en el directori `homes`.
 
@@ -468,7 +468,7 @@ Ara entrem a `/etc/fstab` i afegim el mateix que abans però en el directori `ho
 
 Després de fer els passos al servidor, entrem com marcel al client.
 
-![I](image-167.png)
+![Imatge 167](images/image-167.png)
 
 ## NFS amb LDAP
 
