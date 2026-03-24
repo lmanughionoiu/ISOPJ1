@@ -122,3 +122,52 @@ Una vegada hem fet ja aquests passos, hem de reiniciar el servei.
 ### Màquina Client
 
 ![Imatge 25](images/image-25.png)
+
+# Servidor d'actualitzacions
+
+## Servidor
+
+Instalem apache i apt-mirror al servidor.
+
+![Imatge](image.png)
+
+![Imatge](image-1.png)
+
+Entrem al fitxer `mirror.list` i comentem totes les linies i afegim el nostre paquet que volem instalar.
+
+![Imatge](image-2.png)
+
+Executem la comanda `apt-mirror` per a instalar el paquet que li hem donat.
+
+![Imatge](image-3.png)
+
+Ara comprovem si s'ha instalat i l'enviem al apache.
+
+![Imatge](image-4.png)
+
+## Client
+
+A la màquina client, entrem al fitxer `sources.list` i afegim el repositori, pero al enllaç simbòlic que hem creat al server.
+
+![Imatge](image-5.png)
+
+Hem de fer aquest pas abans de instalar el paquet, ja que primerament s'ha de signar.
+
+![Imatge](image-6.png)
+
+Ara si fem un apt update al client, veurem com agafara un dels repositoris a la màquina servidor.
+
+![Imatge](image-7.png)
+
+I com volem instalar aquest paquet, l'instalem i vorem que ho farà des del repositori del servidor.
+
+![Imatge](image-8.png)
+
+## Exercici
+
+### Servidor
+
+He elegit l'aplicació docker, així que al servidor afegim el repositori.
+
+![Imatge](image-9.png)
+
