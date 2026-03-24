@@ -7,9 +7,7 @@ title: "Sprint 5: Monitoratge, Auditories i Programari Client/Servidor"
 
 Fer teoria rendiment Monitor del sistema fer captures i explicar.
 
-
-
-# Logs
+# Logs - Iker i Manu
 
 ![Imatge 0](images/image.png)
 
@@ -95,19 +93,15 @@ Necessitem dos màquines ubuntu, una té que enviar els logs a l'altra màquina 
 
 Primerament, a la màquina Servidor, que és la que ha de rebre el log i guardar-lo, hem de fer el següent:
 
-Al fitxer rsyslog hem de descomentar les línies que es mostra, per a poder rebre els logs per UDP i/o TCP.
-
-![Imatge 18](images/image-18.png)
-
 Creem un fitxer nou per a poder redireccionar tots els logs remots a una carpeta nova, que crearem també ara.
-
-![Imatge 19](images/image-19.png)
 
 ![Imatge 21](images/image-21.png)
 
-Afegim aquestes línies al fitxer i el guardem.
+![Imatge 19](images/image-19.png)
 
-![Imatge 20](images/image-20.png)
+Al fitxer que creem nou hem de afegir aquestes línies que es mostra, per a poder rebre els logs per UDP i/o TCP.
+
+![alt text](image-15.png)
 
 Finalment, permitim el pas de tcp i udp al firewall.
 
@@ -121,9 +115,39 @@ Una vegada hem fet ja aquests passos, hem de reiniciar el servei.
 
 ### Màquina Client
 
-![Imatge 25](images/image-25.png)
+Afegim la ip del servidor a un nou fitxer 90-forward.conf.
+
+![alt text](image-16.png)
+
+Fem un restart de rsyslog.
+
+![alt text](image-17.png)
+
+#### Comprobació logger
+
+Enviem un logger des del client.
+
+![alt text](image-18.png)
+
+Veem que s'han creat arxius dins de la carpeta remote i tenim la carpeta de ClientSP5.
+
+![alt text](image-19.png)
+
+Veem que si entrem dins del directori creat, esta el log i si comprobem veurem el log que hem enviat.
+
+![alt text](image-20.png)
 
 # Servidor d'actualitzacions
+
+Tenir un servidor d'actualitzacions en una xarxa amb diversos equips Ubuntu és clau per aquests motius principals:
+
+1. **Estalvi radical d'ample de banda:** Si tens 50 ordinadors, una actualització pesada es baixa d'Internet només una vegada al servidor. La resta d'equips la descarreguen d'ell a velocitat de xarxa local (molt més ràpid i sense saturar el teu Internet).
+
+2. **Control i prevenció d'errors:** Pots aturar actualitzacions problemàtiques o provar-les primer en 2 o 3 equips "pilot". Si tot funciona bé, les aproves per a la resta, evitant que una fallada afecti tota l'empresa.
+
+3. **Visió global de la seguretat:** Et permet controlar en un sol lloc quins equips tenen els últims pedaços instal·lats, quins donen error o quins necessiten un reinici urgent.
+
+4. **Equips sense Internet:** És l'única manera d'actualitzar servidors crítics que, per seguretat, no tenen accés directe a la xarxa exterior.
 
 ## Servidor
 
@@ -167,7 +191,36 @@ I com volem instalar aquest paquet, l'instalem i vorem que ho farà des del repo
 
 ### Servidor
 
-He elegit l'aplicació docker, així que al servidor afegim el repositori.
+He elegit l'aplicació anydesk, ja que és el que menys recursos té per instalar-ho rapidament i al servidor afegim el repositori.
 
-![Imatge](image-9.png)
+![alt text](image-21.png)
 
+Fem un `apt-mirror` i veem que descarrega ja el paquet.
+
+![alt text](image-22.png)
+
+Enviem el paquet a apache.
+
+![alt text](image-23.png)
+
+### Client
+
+A la màquina client, entrem al fitxer `sources.list` i afegim el repositori, pero al enllaç simbòlic que hem creat al server.
+
+![alt text](image-24.png)
+
+Hem de fer aquest pas abans de instalar el paquet, ja que primerament s'ha de signar.
+
+![alt text](image-25.png)
+
+Ara fem un apt update i veem que s'ha connectat per agarrar el repositori.
+
+![alt text](image-26.png)
+
+Finalment ja podem instalar el paquet i veure que ho fa des del servidor.
+
+![alt text](image-27.png)
+
+Ara ja el podem fer servir.
+
+![alt text](image-28.png)
