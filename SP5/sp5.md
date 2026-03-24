@@ -3,9 +3,39 @@ layout: default
 title: "Sprint 5: Monitoratge, Auditories i Programari Client/Servidor"
 ---
 
-# Directoris importants
+# Monitoratge del sistema
 
-Fer teoria rendiment Monitor del sistema fer captures i explicar.
+El monitoratge del sistema en Ubuntu consisteix a observar i mesurar l'ús dels recursos del teu ordinador o servidor en temps real. És fonamental per saber si l'equip està bé o si està a punt de saturar-se.
+
+Les eines de monitoratge simplement llegeixen aquestes dades complexes en temps real i les tradueixen a números, llistes o gràfics fàcils d'entendre.
+
+![alt text](image-29.png)
+
+Al obrir la aplicació veem tots els processos que tenim oberts. Com hem vist en un dels Sprints anteriors, és el mateix que per terminal amb HTOP, ETOP, BTOP, etc.
+
+![alt text](image-30.png)
+
+Com podem veure, podem matar un procés, tancarlo, establir l'afinitat, la prioritat, etc. Aquests punts ja els hem donat amb anterioritat.
+
+![alt text](image-33.png)
+
+![alt text](image-34.png)
+
+Ademés, podem veure, com he dit abans, el monitoratge de tots els recursos del ordinador.
+
+Tenim el següent:
+
+**CPU:** Mostra la càrrega de feina del processador de l'ordinador. Si està contínuament al 100%, el sistema anirà lent perquè no dona l'abast processant tasques.
+
+**RAM:** És l'espai de treball on s'executen els programes oberts. Si la RAM s'omple, Ubuntu haurà de fer servir una part del disc dur com a RAM d'emergència (Swap), cosa que alenteix dràsticament l'equip.
+
+**Xarxa:** Mesura quantes dades entren i surten del teu equip, a més de vigilar les connexions actives o ports oberts.
+
+**Disc:** Controla dues coses: l'espai lliure restant i la velocitat de Lectura/Escriptura. Un disc treballant al màxim crea colls d'ampolla.
+
+![alt text](image-31.png)
+
+![alt text](image-32.png)
 
 # Logs - Iker i Manu
 
@@ -141,7 +171,7 @@ Veem que si entrem dins del directori creat, esta el log i si comprobem veurem e
 
 Tenir un servidor d'actualitzacions en una xarxa amb diversos equips Ubuntu és clau per aquests motius principals:
 
-1. **Estalvi radical d'ample de banda:** Si tens 50 ordinadors, una actualització pesada es baixa d'Internet només una vegada al servidor. La resta d'equips la descarreguen d'ell a velocitat de xarxa local (molt més ràpid i sense saturar el teu Internet).
+1. **Estalvi radical d'ample de banda:** Si tenim 50 ordinadors, una actualització pesada es baixa d'Internet només una vegada al servidor. La resta d'equips la descarreguen d'ell a velocitat de xarxa local.
 
 2. **Control i prevenció d'errors:** Pots aturar actualitzacions problemàtiques o provar-les primer en 2 o 3 equips "pilot". Si tot funciona bé, les aproves per a la resta, evitant que una fallada afecti tota l'empresa.
 
