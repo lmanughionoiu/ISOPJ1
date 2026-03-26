@@ -254,3 +254,4 @@ Finalment ja podem instalar el paquet i veure que ho fa des del servidor.
 Ara ja el podem fer servir.
 
 ![alt text](image-28.png)
+
