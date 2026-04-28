@@ -65,8 +65,6 @@ Dins la mateixa pestanya de quotes, s'estableix un límit de 300 MB i un nivell 
 
 ## Pas 7. Crear dos usuaris locals: alumne1 i alumne2
 
-S'obre `lusrmgr.msc` (Usuaris i grups locals) → Usuaris → Nou usuari. Es creen `alumne1` i `alumne2` amb les contrasenyes corresponents. Es desactiva "L'usuari ha de canviar la contrasenya" i s'activa "La contrasenya no caduca".
-
 ![alt text](image-15.png)
 
 ![alt text](image-16.png)
@@ -80,8 +78,6 @@ S'obre `lusrmgr.msc` (Usuaris i grups locals) → Usuaris → Nou usuari. Es cre
 ![alt text](image-20.png)
 
 ## Pas 8. Afegir-los a un grup nou anomenat Limitats
-
-Es crea el grup `Limitats` dins `lusrmgr.msc` → Grups → Nou grup. S'hi afegeixen `alumne1` i `alumne2` com a membres.
 
 ![alt text](image-21.png)
 
@@ -203,11 +199,15 @@ S'inicia sessió com alumne1. Es verifica que:
   * `taskkill /IM Teams.exe /F`
 * Reengega sessió com alumne2 i comprova que aquests processos no es llencen o es tanquen
 
+![alt text](image-41.png)
+
+![alt text](image-42.png)
+
 ## Pas 23. Documentació
 
 ### Tasklist i taula justificativa
 
-En els passos anteriors (19-22) s'ha generat el fitxer `processos_inici.txt` amb la llista completa de processos actius i s'ha creat una taula justificativa dels processos prescindibles (Discord.exe, OneDrive.exe). Aquesta informació es documenta aquí com a part de l'entrega amb MkDocs.
+En els passos anteriors (19-22) s'ha generat el fitxer `processos_inici.txt` amb la llista completa de processos actius i s'ha creat una taula justificativa dels processos prescindibles (Discord.exe, OneDrive.exe).
 
 ### Què passa si mates un procés crític com explorer.exe?
 
