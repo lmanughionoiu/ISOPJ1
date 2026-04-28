@@ -366,7 +366,6 @@ Si ens connectem com Thorkell, no ens deixarà entrar, ja que no tenim permís. 
 
 Poden accedir tant clients Windows com Linux.
 
-
 ## EXERCICI 1 - NFS sense LDAP
 
 ### Server
