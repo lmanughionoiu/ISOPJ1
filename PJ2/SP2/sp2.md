@@ -316,7 +316,9 @@ Volem controlar qui pot accedir i modificar la carpeta Projectes, creada dins la
 
 ## Pas 24. Crear la carpeta
 
-Inicia sessió com a administrador i crea la carpeta `D:\Projectes`.
+Iniciem sessió com a administrador i creem la carpeta `D:\Projectes`.
+
+![alt text](image-43.png)
 
 ## Pas 25. Assignar permisos normals al grup
 
@@ -325,6 +327,20 @@ Inicia sessió com a administrador i crea la carpeta `D:\Projectes`.
 3. Elimina Users o Everyone si hi apareixen
 4. Afegeix el grup Limitats i dona-li Control total
 5. Aplica els canvis
+
+![alt text](image-44.png)
+
+![alt text](image-45.png)
+
+![alt text](image-46.png)
+
+![alt text](image-47.png)
+
+![alt text](image-48.png)
+
+![alt text](image-49.png)
+
+![alt text](image-50.png)
 
 Ara qualsevol usuari del grup Limitats té accés complet.
 
