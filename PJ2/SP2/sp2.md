@@ -59,7 +59,7 @@ Propietats de la unitat D: → pestanya Quota → "Activar l'administració de q
 
 ## Pas 6. Establir límit de 300 MB per usuari, amb notificació d'advertència
 
-Dins la mateixa pestanya de quotes, s'estableix un límit de 300 MB i un nivell d'advertència (p. ex. 250 MB). Això impedirà que cada usuari ocupi més de 300 MB a la partició Dades.
+Dins la mateixa pestanya de quotes, s'estableix un límit de 300 MB i un nivell d'advertència. Això impedirà que cada usuari ocupi més de 300 MB a la partició Dades.
 
 ![alt text](image-14.png)
 
