@@ -1,4 +1,7 @@
-# Sprint 2: Instal·lació, configuració de programari de base i gestió de fitxers
+---
+layout: default
+title: "Sprint 2: Instal·lació, configuració de programari de base i gestió de fitxers"
+---
 
 # Fase 1 – Preparació del sistema
 
