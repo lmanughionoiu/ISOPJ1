@@ -366,11 +366,10 @@ Si ens connectem com Thorkell, no ens deixarà entrar, ja que no tenim permís. 
 
 Poden accedir tant clients Windows com Linux.
 
-## NFS sense LDAP
 
-### EXERCICI 1
+## EXERCICI 1 - NFS sense LDAP
 
-#### Server
+### Server
 
 Primerament hem d'instal·lar el servei de NFS al server.
 
@@ -402,7 +401,7 @@ Finalment, entrem al directori i creem un fitxer per a fer les proves al client.
 
 Ara ja podem anar al client.
 
-#### Client
+### Client
 
 Primerament hem d'instal·lar aquests paquets al client.
 
@@ -428,9 +427,9 @@ Ara que tenim el client reiniciat, per comprovar que ens funciona el NFS, hem d'
 
 Veem que l'arxiu que hem creat al directori del servidor ja ens apareix al client.
 
-### EXERCICI 2
+## EXERCICI 2 - NFS amb LDAP
 
-#### Server
+### Server
 
 Creem el directori homes, fiquem permisos i creem un altre directori dins, afegint-li els permisos.
 
@@ -456,7 +455,7 @@ Ara si entrem al directori `homes` veem que no hi ha res al directori `marcel`, 
 
 ![Imatge 166](images/image-166.png)
 
-#### Client
+### Client
 
 Ara que estem al client, hem de crear el directori `homes` que hem creat al servidor, afegint-li els permisos.
 
@@ -477,10 +476,6 @@ Ara que tenim el usuari creat, entrem de nou amb el nostre usuari i mirem si al 
 Mirem la carpeta i ja veem que tenim el directori creat.
 
 ![Imatge 169](images/image-169.png)
-
-## NFS amb LDAP
-
-
 
 # Exercici LDAP
 
