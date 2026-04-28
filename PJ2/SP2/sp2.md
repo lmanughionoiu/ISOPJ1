@@ -350,17 +350,25 @@ Ara qualsevol usuari del grup Limitats té accés complet.
 2. Crea un fitxer dins `D:\Projectes`, modifica'l i elimina'l
 3. Tot hauria de funcionar (perquè té permisos heretats del grup Limitats)
 
+![alt text](image-51.png)
+
+![alt text](image-52.png)
+
 ## Pas 27. Aplicar excepció per alumne2
 
 Torna a iniciar sessió com administrador i executa:
 `icacls "D:\Projectes" /grant:r alumne2:(R)`
 Això substitueix qualsevol permís anterior d'alumne2 i li dona només lectura.
 
+![alt text](image-53.png)
+
 ## Pas 28. Comprovar l'excepció amb alumne2
 
 1. Inicia sessió com alumne2
 2. Intenta obrir un fitxer dins `D:\Projectes` → ha de poder llegir-lo
 3. Intenta editar-lo o crear-ne un de nou → ha de rebre un missatge de denegació
+
+![alt text](image-54.png)
 
 ## Pas 29. Consultar els permisos aplicats
 
@@ -374,3 +382,5 @@ On:
 - **(CI)** = Container Inherit → les subcarpetes filles hereten el permís
 - **(F)** = Full control (Control total)
 - **(R)** = Read (Només lectura)
+
+![alt text](image-55.png)
